@@ -8,13 +8,14 @@ from data_models.condition_result import ConditionResult
 
 
 class TakeoffCommand(ICommand):
-    window_size = 20
     command_string = "takeoff"
-    SPEED_MAX_ALLOWED_DIFF = 10
+    window_size = 20
+    SPEED_MAX_ALLOWED_DIFF = 25
     SPEED_LOWER_BOUND = 45
     SPEED_UPPER_BOUND = 85
 
     def __init__(self):
+        super().__init__()
         self.add_condition(self.__speed_bounds_or_speed_inc_check)
         self.add_condition(self.__same_speed_check)
         self.add_condition(self.__speed_difference_check)
@@ -25,7 +26,7 @@ class TakeoffCommand(ICommand):
                                          command_name=self.command_string,
                                          window_frame=window_frame)
         # Speed increase status
-        speed_inc_check = self.__same_speed_check(window_frame)
+        speed_inc_check = self.__speed_inc_check(window_frame)
 
         if not speed_inc_check.is_fulfilled() and not bound_check.is_fulfilled():
             msg = f"Speed is not increasing on takeoff while plane speed is not following rule -" \
@@ -34,6 +35,7 @@ class TakeoffCommand(ICommand):
                                                               info=Anomaly.createErrorMsg(
                                                                   func_name="__speed_bounds_or_speed_inc_check",
                                                                   faulty_component=msg)))
+        return ConditionResult.fulfilled_result()
 
     def __speed_inc_check(self, window_frame):
         speed_inc_check = ConditionResult.fulfilled_result()

@@ -11,6 +11,7 @@ class FlyStraightCommand(ICommand):
     SPEED_UPPER_BOUND = 120
 
     def __init__(self):
+        super().__init__()
         self.add_condition(self.__speed_bounds_check)
         self.add_condition(self.__same_speed_check)
         self.add_condition(self.__speed_difference_check)

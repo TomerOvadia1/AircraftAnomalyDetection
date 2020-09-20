@@ -3,7 +3,7 @@ import input_data.test_data as test_data
 import os
 def main():
     input_files = [
-        f"{os.path.dirname(os.path.abspath(test_data.__file__))}\\test_speed_fault.csv"
+        f"{os.path.dirname(os.path.abspath(test_data.__file__))}\\test_normal_flight.csv"
     ]
     anomaly_detector = AnomalyDetector(input_files)
     anomaly_detector.detect()
