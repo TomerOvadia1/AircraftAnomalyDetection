@@ -2,6 +2,7 @@ from commands.common.command_factory import CommandFactory
 import csv
 from data_models.data_row import DataRow
 from utils import get_logger
+from pprint import pformat
 
 
 class AnomalyDetector:
@@ -29,8 +30,8 @@ class AnomalyDetector:
                 try:
                     cur_data_row = DataRow(line)
                     # Get window frame
-                    window_size = self._factory.get(cur_data_row.command).window_size
                     cmd = self._factory.get(cur_data_row.command)
+                    window_size = cmd.window_size
                     window_frame = []
                     for prev_line in file_content[max(i - window_size + 1, 0):i + 1]:
                         window_frame.append(DataRow(prev_line))
@@ -50,4 +51,4 @@ class AnomalyDetector:
             if not anomalies:
                 self._log.info(f"No anomalies found {file_name}")
             else:
-                self._log.info(f"Anomalies found: {anomalies}")
+                self._log.info(f"Anomalies found: \n {pformat(anomalies)}")
