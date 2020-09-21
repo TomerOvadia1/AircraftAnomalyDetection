@@ -13,6 +13,12 @@ class ICommand(ABC):
     def add_condition(self, condition_func):
         self.conditions.add(condition_func)
 
+    def add_all_conditions(self, conditions):
+        if not isinstance(conditions, list):
+            conditions = [conditions]
+        for condition in conditions:
+            self.conditions.add(condition)
+
     def check_all_conditions(self, window_frame: List[DataRow]) -> List[ConditionResult]:
         false_conditions = []
         for condition in self.conditions:

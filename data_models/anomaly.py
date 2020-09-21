@@ -4,5 +4,5 @@ class Anomaly:
         self.info = info
 
     @staticmethod
-    def createErrorMsg(func_name, faulty_component):
-        return f"{func_name} condition is unfulfilled: faulty - {faulty_component}"
+    def create_error_msg(func_name, fault):
+        return f"{func_name} condition is unfulfilled: fault - {fault}"

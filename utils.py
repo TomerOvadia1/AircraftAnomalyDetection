@@ -1,6 +1,8 @@
 import logging
 import os
 
+MAX_VSI_DIFF = 1000
+
 
 def get_logger(name):
     FORMAT = '%(asctime)-17s %(name)s %(levelname)-8s %(message)s'
