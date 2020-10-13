@@ -7,7 +7,8 @@ from predictor import Predictor
 
 
 def main():
-    input_files = get_all_csv_files(os.path.dirname(os.path.realpath(__file__)))
+    cur_dir = os.path.dirname(os.path.realpath(__file__))
+    input_files = get_all_csv_files(cur_dir)
     anomaly_detector = AnomalyDetector()
     anomalies_dict = anomaly_detector.detect_all(input_files=input_files)
     results_analyzer = ResultsAnalyzer()
@@ -15,12 +16,7 @@ def main():
     avg_results = results_analyzer.get_avg_results_info(results_info_lst)
     predictor = Predictor()
     predictor.predict_all(anomalies_dict)
-    print('---------------------------------------')
     print(avg_results)
-
-
-    results_analyzer._test(anomalies_dict)
-
 
 
 if __name__ == "__main__":
